@@ -1,0 +1,14 @@
+# /usr/lib/systemd/system/filedownload.service
+
+[Unit]
+Description=filedownload
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=[[PROJECTPATH]]/run.sh
+ExecStop=kill -15 $(ps -ef | grep [[PROJECTPATH]]/filedownload | grep -v grep | awk \'{print $2}\')
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
